@@ -1,0 +1,1049 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Contract Negotiation Assistant — User Guide</title>
+  <style>
+    :root {
+      --orange: #FF9900;
+      --orange-hover: #EC7211;
+      --blue: #232F3E;
+      --dark-blue: #161E2D;
+      --light-bg: #FAFAFA;
+      --card-bg: #FFFFFF;
+      --text: #16191F;
+      --text-muted: #5F6B7A;
+      --border: #E9EBED;
+      --success: #1D8102;
+      --warning: #D13212;
+      --info: #0073BB;
+      --radius: 12px;
+      --shadow: 0 2px 8px rgba(0,0,0,0.06);
+      --shadow-lg: 0 8px 32px rgba(0,0,0,0.10);
+    }
+
+    * { margin: 0; padding: 0; box-sizing: border-box; }
+
+    body {
+      font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+      background: var(--light-bg);
+      color: var(--text);
+      line-height: 1.6;
+    }
+
+    /* Hero Section */
+    .hero {
+      background: linear-gradient(135deg, var(--blue) 0%, var(--dark-blue) 100%);
+      color: white;
+      padding: 4rem 2rem;
+      text-align: center;
+      position: relative;
+      overflow: hidden;
+    }
+
+    .hero::before {
+      content: '';
+      position: absolute;
+      top: -50%;
+      left: -50%;
+      width: 200%;
+      height: 200%;
+      background: radial-gradient(circle at 30% 70%, rgba(255,153,0,0.08) 0%, transparent 50%);
+      pointer-events: none;
+    }
+
+    .hero-content {
+      max-width: 800px;
+      margin: 0 auto;
+      position: relative;
+      z-index: 1;
+    }
+
+    .hero-badge {
+      display: inline-block;
+      background: rgba(255,153,0,0.15);
+      color: var(--orange);
+      padding: 0.4rem 1rem;
+      border-radius: 20px;
+      font-size: 0.8rem;
+      font-weight: 600;
+      letter-spacing: 0.5px;
+      text-transform: uppercase;
+      margin-bottom: 1.5rem;
+    }
+
+    .hero h1 {
+      font-size: 2.5rem;
+      font-weight: 700;
+      margin-bottom: 1rem;
+      line-height: 1.2;
+    }
+
+    .hero h1 span { color: var(--orange); }
+
+    .hero p {
+      font-size: 1.15rem;
+      opacity: 0.85;
+      max-width: 600px;
+      margin: 0 auto 2rem;
+    }
+
+    .hero-cta {
+      display: inline-flex;
+      align-items: center;
+      gap: 0.5rem;
+      background: var(--orange);
+      color: white;
+      padding: 0.85rem 2rem;
+      border-radius: 8px;
+      text-decoration: none;
+      font-weight: 600;
+      font-size: 1rem;
+      transition: background 0.2s;
+    }
+
+    .hero-cta:hover { background: var(--orange-hover); }
+
+    /* Container */
+    .container {
+      max-width: 1100px;
+      margin: 0 auto;
+      padding: 0 1.5rem;
+    }
+
+    /* Section */
+    section {
+      padding: 4rem 0;
+    }
+
+    section h2 {
+      font-size: 1.75rem;
+      font-weight: 700;
+      margin-bottom: 0.5rem;
+      color: var(--blue);
+    }
+
+    section .section-subtitle {
+      color: var(--text-muted);
+      font-size: 1.05rem;
+      margin-bottom: 2.5rem;
+    }
+
+    /* What It Does */
+    .features-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+      gap: 1.5rem;
+    }
+
+    .feature-card {
+      background: var(--card-bg);
+      border: 1px solid var(--border);
+      border-radius: var(--radius);
+      padding: 1.75rem;
+      transition: box-shadow 0.2s, transform 0.2s;
+    }
+
+    .feature-card:hover {
+      box-shadow: var(--shadow-lg);
+      transform: translateY(-2px);
+    }
+
+    .feature-icon {
+      width: 44px;
+      height: 44px;
+      border-radius: 10px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 1.3rem;
+      margin-bottom: 1rem;
+    }
+
+    .feature-icon.orange { background: rgba(255,153,0,0.1); }
+    .feature-icon.blue { background: rgba(35,47,62,0.08); }
+    .feature-icon.green { background: rgba(29,129,2,0.08); }
+
+    .feature-card h3 {
+      font-size: 1.05rem;
+      margin-bottom: 0.5rem;
+      color: var(--blue);
+    }
+
+    .feature-card p {
+      color: var(--text-muted);
+      font-size: 0.92rem;
+    }
+
+    /* Steps */
+    .steps-section { background: white; }
+
+    .steps-list {
+      display: flex;
+      flex-direction: column;
+      gap: 1.25rem;
+    }
+
+    .step-item {
+      display: flex;
+      align-items: flex-start;
+      gap: 1.25rem;
+      background: var(--light-bg);
+      border-radius: var(--radius);
+      padding: 1.5rem;
+      border: 1px solid var(--border);
+    }
+
+    .step-number {
+      flex-shrink: 0;
+      width: 36px;
+      height: 36px;
+      background: var(--orange);
+      color: white;
+      border-radius: 50%;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-weight: 700;
+      font-size: 0.95rem;
+    }
+
+    .step-content h3 {
+      font-size: 1rem;
+      margin-bottom: 0.3rem;
+      color: var(--blue);
+    }
+
+    .step-content p {
+      color: var(--text-muted);
+      font-size: 0.9rem;
+    }
+
+    /* Phases */
+    .phases-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(240px, 1fr));
+      gap: 1.5rem;
+    }
+
+    .phase-card {
+      background: var(--card-bg);
+      border: 1px solid var(--border);
+      border-radius: var(--radius);
+      padding: 1.75rem;
+      position: relative;
+      overflow: hidden;
+    }
+
+    .phase-card::before {
+      content: '';
+      position: absolute;
+      top: 0;
+      left: 0;
+      right: 0;
+      height: 4px;
+      background: var(--orange);
+    }
+
+    .phase-card .phase-label {
+      font-size: 0.75rem;
+      font-weight: 700;
+      text-transform: uppercase;
+      letter-spacing: 0.5px;
+      color: var(--orange);
+      margin-bottom: 0.75rem;
+    }
+
+    .phase-card h3 {
+      font-size: 1.1rem;
+      margin-bottom: 0.75rem;
+      color: var(--blue);
+    }
+
+    .phase-card p {
+      color: var(--text-muted);
+      font-size: 0.88rem;
+      margin-bottom: 1rem;
+    }
+
+    .phase-tag {
+      display: inline-block;
+      background: rgba(255,153,0,0.1);
+      color: var(--orange-hover);
+      padding: 0.25rem 0.75rem;
+      border-radius: 4px;
+      font-size: 0.78rem;
+      font-weight: 600;
+    }
+
+    /* Actions Table */
+    .actions-section { background: white; }
+
+    .actions-table {
+      width: 100%;
+      border-collapse: collapse;
+      background: var(--card-bg);
+      border-radius: var(--radius);
+      overflow: hidden;
+      box-shadow: var(--shadow);
+    }
+
+    .actions-table th {
+      background: var(--blue);
+      color: white;
+      padding: 1rem 1.25rem;
+      text-align: left;
+      font-size: 0.85rem;
+      font-weight: 600;
+      text-transform: uppercase;
+      letter-spacing: 0.3px;
+    }
+
+    .actions-table td {
+      padding: 0.9rem 1.25rem;
+      border-bottom: 1px solid var(--border);
+      font-size: 0.9rem;
+      vertical-align: top;
+    }
+
+    .actions-table tr:last-child td { border-bottom: none; }
+
+    .actions-table tr:hover td { background: #F7F8F9; }
+
+    .action-icon {
+      font-size: 1.1rem;
+      margin-right: 0.4rem;
+    }
+
+    /* Preparation */
+    .prep-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+      gap: 1.5rem;
+    }
+
+    .prep-card {
+      background: var(--card-bg);
+      border: 1px solid var(--border);
+      border-radius: var(--radius);
+      padding: 1.5rem;
+    }
+
+    .prep-card h3 {
+      font-size: 1rem;
+      margin-bottom: 1rem;
+      color: var(--blue);
+      display: flex;
+      align-items: center;
+      gap: 0.5rem;
+    }
+
+    .prep-card ul {
+      list-style: none;
+      padding: 0;
+    }
+
+    .prep-card ul li {
+      padding: 0.5rem 0;
+      padding-left: 1.5rem;
+      position: relative;
+      font-size: 0.9rem;
+      color: var(--text-muted);
+      border-bottom: 1px solid var(--border);
+    }
+
+    .prep-card ul li:last-child { border-bottom: none; }
+
+    .prep-card ul li::before {
+      content: '✓';
+      position: absolute;
+      left: 0;
+      color: var(--success);
+      font-weight: 700;
+    }
+
+    /* Tips */
+    .tips-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+      gap: 1.25rem;
+    }
+
+    .tip-card {
+      background: var(--card-bg);
+      border: 1px solid var(--border);
+      border-radius: var(--radius);
+      padding: 1.25rem 1.5rem;
+      display: flex;
+      align-items: flex-start;
+      gap: 1rem;
+    }
+
+    .tip-icon {
+      flex-shrink: 0;
+      font-size: 1.3rem;
+    }
+
+    .tip-card p {
+      font-size: 0.9rem;
+      color: var(--text-muted);
+    }
+
+    .tip-card strong {
+      color: var(--text);
+    }
+
+    /* Quick Reference */
+    .qr-section { background: white; }
+
+    .qr-table {
+      width: 100%;
+      border-collapse: collapse;
+      background: var(--card-bg);
+      border-radius: var(--radius);
+      overflow: hidden;
+      box-shadow: var(--shadow);
+    }
+
+    .qr-table th {
+      background: var(--blue);
+      color: white;
+      padding: 0.9rem 1.25rem;
+      text-align: left;
+      font-size: 0.85rem;
+      font-weight: 600;
+    }
+
+    .qr-table td {
+      padding: 0.85rem 1.25rem;
+      border-bottom: 1px solid var(--border);
+      font-size: 0.88rem;
+    }
+
+    .qr-table tr:last-child td { border-bottom: none; }
+    .qr-table tr:hover td { background: #F7F8F9; }
+
+    .qr-table code {
+      background: rgba(255,153,0,0.08);
+      color: var(--orange-hover);
+      padding: 0.2rem 0.5rem;
+      border-radius: 4px;
+      font-size: 0.82rem;
+      font-family: 'SF Mono', 'Fira Code', monospace;
+    }
+
+    /* Key Rules */
+    .rules-list {
+      display: flex;
+      flex-direction: column;
+      gap: 1rem;
+    }
+
+    .rule-item {
+      background: var(--card-bg);
+      border: 1px solid var(--border);
+      border-left: 4px solid var(--orange);
+      border-radius: 0 var(--radius) var(--radius) 0;
+      padding: 1.25rem 1.5rem;
+    }
+
+    .rule-item p {
+      font-size: 0.92rem;
+      color: var(--text-muted);
+    }
+
+    .rule-item strong {
+      color: var(--text);
+    }
+
+    /* FAQ */
+    .faq-list {
+      display: flex;
+      flex-direction: column;
+      gap: 1rem;
+    }
+
+    .faq-item {
+      background: var(--card-bg);
+      border: 1px solid var(--border);
+      border-radius: var(--radius);
+      overflow: hidden;
+    }
+
+    .faq-question {
+      padding: 1.25rem 1.5rem;
+      font-weight: 600;
+      font-size: 0.95rem;
+      cursor: pointer;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      user-select: none;
+      transition: background 0.2s;
+    }
+
+    .faq-question:hover { background: #F7F8F9; }
+
+    .faq-question::after {
+      content: '+';
+      font-size: 1.3rem;
+      color: var(--orange);
+      font-weight: 400;
+      transition: transform 0.2s;
+    }
+
+    .faq-item.open .faq-question::after {
+      content: '−';
+    }
+
+    .faq-answer {
+      padding: 0 1.5rem 1.25rem;
+      font-size: 0.9rem;
+      color: var(--text-muted);
+      display: none;
+    }
+
+    .faq-item.open .faq-answer {
+      display: block;
+    }
+
+    /* Footer */
+    footer {
+      background: var(--blue);
+      color: white;
+      padding: 2.5rem 2rem;
+      text-align: center;
+    }
+
+    footer p {
+      opacity: 0.7;
+      font-size: 0.88rem;
+      margin-bottom: 0.5rem;
+    }
+
+    footer a {
+      color: var(--orange);
+      text-decoration: none;
+    }
+
+    /* Responsive */
+    @media (max-width: 768px) {
+      .hero h1 { font-size: 1.8rem; }
+      .hero p { font-size: 1rem; }
+      section { padding: 3rem 0; }
+      .phases-grid { grid-template-columns: 1fr; }
+      .actions-table, .qr-table { font-size: 0.82rem; }
+      .actions-table th, .actions-table td,
+      .qr-table th, .qr-table td { padding: 0.7rem 0.9rem; }
+    }
+  </style>
+</head>
+<body>
+
+  <!-- Hero -->
+  <section class="hero">
+    <div class="hero-content">
+      <div class="hero-badge">AI-Powered Contract Analysis</div>
+      <h1>Contract Negotiation <span>Assistant</span></h1>
+      <p>Analyze supplier redlines, identify deviations, and get recommended actions — all based on approved legal guidance, in one interaction.</p>
+      <a href="https://us-east-1.quicksight.aws.amazon.com/sn/account/amazonbi/start/agents?view=21c4cf3c-77d5-416c-9421-c63ee2ab10fc" target="_blank" class="hero-cta">
+        Open Chat Agent →
+      </a>
+    </div>
+  </section>
+
+  <!-- What It Does -->
+  <section>
+    <div class="container">
+      <h2>What It Does</h2>
+      <p class="section-subtitle">The Assistant reads your contract, compares it against approved sources, and recommends actions for every deviation.</p>
+      <div class="features-grid">
+        <div class="feature-card">
+          <div class="feature-icon orange">📄</div>
+          <h3>Reads Tracked Changes</h3>
+          <p>Identifies every insertion, deletion, and comment in the supplier's redline document.</p>
+        </div>
+        <div class="feature-card">
+          <div class="feature-icon blue">🔍</div>
+          <h3>Compares Against Base Template</h3>
+          <p>Word-by-word comparison against the approved Framework Agreement, ITC, and Site T&Cs.</p>
+        </div>
+        <div class="feature-card">
+          <div class="feature-icon orange">📘</div>
+          <h3>L1: Playbook Search</h3>
+          <p>Searches the Contractual Documentation Playbook for pre-approved legal fallbacks.</p>
+        </div>
+        <div class="feature-card">
+          <div class="feature-icon green">📂</div>
+          <h3>L2: Clause Repository</h3>
+          <p>Searches historical precedents — what has been accepted or rejected in past negotiations.</p>
+        </div>
+        <div class="feature-card">
+          <div class="feature-icon blue">👤</div>
+          <h3>L3: Expert POC Routing</h3>
+          <p>When no guidance exists, routes to the correct expert Point of Contact for the clause topic.</p>
+        </div>
+        <div class="feature-card">
+          <div class="feature-icon orange">⬇️</div>
+          <h3>Downloadable Analysis</h3>
+          <p>Generates a complete analysis document ready for download, sharing, and archiving.</p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- How to Access -->
+  <section class="steps-section" id="how-to-access">
+    <div class="container">
+      <h2>How to Access</h2>
+      <p class="section-subtitle">Access the Assistant in three simple steps.</p>
+      <div class="steps-list">
+        <div class="step-item">
+          <div class="step-number">1</div>
+          <div class="step-content">
+            <h3>Open Quick Suite</h3>
+            <p>Navigate to Quick Suite from your workspace.</p>
+          </div>
+        </div>
+        <div class="step-item">
+          <div class="step-number">2</div>
+          <div class="step-content">
+            <h3>Go to Chat Agents</h3>
+            <p>Select the Chat Agents section in the navigation.</p>
+          </div>
+        </div>
+        <div class="step-item">
+          <div class="step-number">3</div>
+          <div class="step-content">
+            <h3>Select "Contract Negotiation Assistant"</h3>
+            <p>Choose the agent and select <strong>Advanced mode</strong> for the best analysis quality.</p>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Document Preparation -->
+  <section>
+    <div class="container">
+      <h2>Before You Start</h2>
+      <p class="section-subtitle">Prepare your documents correctly to ensure accurate analysis.</p>
+      <div class="prep-grid">
+        <div class="prep-card">
+          <h3>📋 Document Requirements</h3>
+          <ul>
+            <li>Save as <strong>.docx</strong> — PDF reduces accuracy</li>
+            <li>Keep Track Changes visible (don't accept them)</li>
+            <li>Use "All Markup" view in Word</li>
+            <li>Keep comments open — don't resolve them</li>
+            <li>Save with active revisions</li>
+          </ul>
+        </div>
+        <div class="prep-card">
+          <h3>🔗 Pre-Connected Resources</h3>
+          <ul>
+            <li>Base Template (Framework Agreement + ITC + Site T&Cs)</li>
+            <li>Clause Repository (historical precedents)</li>
+            <li>Playbook (legal fallbacks &amp; guidance)</li>
+          </ul>
+          <p style="margin-top:0.75rem; font-size:0.82rem; color:var(--text-muted);">
+            ⓘ These documents are already connected. No upload needed.
+          </p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Analysis Phases -->
+  <section class="steps-section">
+    <div class="container">
+      <h2>Analysis Phases</h2>
+      <p class="section-subtitle">The Assistant supports different analysis types depending on your negotiation stage.</p>
+
+      <!-- Contract Negotiation Flow -->
+      <p style="font-size:0.85rem; font-weight:700; text-transform:uppercase; letter-spacing:0.5px; color:var(--orange); margin-bottom:1rem;">Contract Negotiation Flow</p>
+      <div class="phases-grid" style="margin-bottom:2.5rem;">
+        <div class="phase-card">
+          <div class="phase-label">Phase 1</div>
+          <h3>Round 1 — Initial Analysis</h3>
+          <p>First supplier redline received. Upload the redline .docx with tracked changes and comments.</p>
+          <span class="phase-tag">Upload: Redline .docx</span>
+        </div>
+        <div class="phase-card">
+          <div class="phase-label">Phase 2</div>
+          <h3>Intermediate Round</h3>
+          <p>New version after your counterproposal. Tracks resolved, new, modified, and unchanged deviations.</p>
+          <span class="phase-tag">Upload: New redline + Previous analysis</span>
+        </div>
+        <div class="phase-card">
+          <div class="phase-label">Phase 3</div>
+          <h3>Final Version</h3>
+          <p>Clean contract ready for signature. Assigns outcomes and generates a negotiation scorecard.</p>
+          <span class="phase-tag">Upload: Final .docx + Previous analysis</span>
+        </div>
+      </div>
+
+      <!-- Separate Use Case -->
+      <p style="font-size:0.85rem; font-weight:700; text-transform:uppercase; letter-spacing:0.5px; color:var(--orange); margin-bottom:1rem;">NFA Compliance Check</p>
+      <div class="phases-grid">
+        <div class="phase-card" style="border-top: 4px solid var(--info);">
+          <div class="phase-label" style="color:var(--info);">Standalone</div>
+          <h3>Site T&C (NFA Check)</h3>
+          <p>Independent use case: verifies that a Site T&C redline does not override or contradict terms already agreed in the signed NFA.</p>
+          <span class="phase-tag">Upload: STC .docx</span>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Recommended Actions -->
+  <section class="actions-section">
+    <div class="container">
+      <h2>Understanding Recommended Actions</h2>
+      <p class="section-subtitle">Each deviation receives one of these recommended actions.</p>
+      <div style="overflow-x:auto;">
+        <table class="actions-table">
+          <thead>
+            <tr>
+              <th>Action</th>
+              <th>Meaning</th>
+              <th>What to Do</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr>
+              <td><span class="action-icon">❌</span> <strong>Reject</strong></td>
+              <td>Playbook says "Not acceptable"</td>
+              <td>Push back firmly. Use Playbook citation.</td>
+            </tr>
+            <tr>
+              <td><span class="action-icon">✅</span> <strong>Potentially Acceptable</strong></td>
+              <td>Playbook has a fallback</td>
+              <td>Negotiate for better terms before accepting. The fallback is the minimum, not the target.</td>
+            </tr>
+            <tr>
+              <td><span class="action-icon">⚠️</span> <strong>For Consideration</strong></td>
+              <td>No Playbook guidance, but precedents exist</td>
+              <td>Consult Legal POC or expert before deciding.</td>
+            </tr>
+            <tr>
+              <td><span class="action-icon">➡️</span> <strong>Route to POC</strong></td>
+              <td>No guidance anywhere</td>
+              <td>Contact the Expert POC identified by the Assistant.</td>
+            </tr>
+            <tr>
+              <td><span class="action-icon">🚫</span> <strong>Auto-Reject</strong></td>
+              <td>Supplier weakened an obligation (best-effort)</td>
+              <td>Reject — this removes enforcement rights.</td>
+            </tr>
+          </tbody>
+        </table>
+      </div>
+    </div>
+  </section>
+
+  <!-- Key Rules -->
+  <section>
+    <div class="container">
+      <h2>Key Rules</h2>
+      <p class="section-subtitle">Important principles to keep in mind.</p>
+      <div class="rules-list">
+        <div class="rule-item">
+          <p><strong>You always confirm.</strong> The Assistant will never generate a document without asking you first. You see the summary and approve.</p>
+        </div>
+        <div class="rule-item">
+          <p><strong>Comments ≠ Deviations.</strong> Only actual text changes count as deviations. Comments provide context only.</p>
+        </div>
+        <div class="rule-item">
+          <p><strong>Playbook always wins.</strong> Even if 10 contracts accepted a deviation, if the Playbook says "No" → the recommendation is Reject.</p>
+        </div>
+        <div class="rule-item">
+          <p><strong>Consistent IDs across rounds.</strong> Deviation #5 in Round 1 stays #5 in Round 2, Round 3, and Final.</p>
+        </div>
+        <div class="rule-item">
+          <p><strong>No invented language.</strong> The Assistant retrieves information from approved sources only. It does not create legal text or make final decisions.</p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Quick Reference -->
+  <section class="qr-section">
+    <div class="container">
+      <h2>Quick Reference</h2>
+      <p class="section-subtitle">Common tasks and how to prompt them.</p>
+      <div style="overflow-x:auto;">
+        <table class="qr-table">
+          <thead>
+            <tr>
+              <th>I Want To...</th>
+              <th>Upload</th>
+              <th>Prompt Keyword</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr>
+              <td>Analyze first redline</td>
+              <td>Redline .docx</td>
+              <td><code>Round 1 — Analyze...</code></td>
+            </tr>
+            <tr>
+              <td>Analyze new round</td>
+              <td>New redline + previous analysis</td>
+              <td><code>New round — ...</code></td>
+            </tr>
+            <tr>
+              <td>Close negotiation</td>
+              <td>Final contract + previous analysis</td>
+              <td><code>Final Version — ...</code></td>
+            </tr>
+            <tr>
+              <td>Analyze Site T&C</td>
+              <td>STC .docx</td>
+              <td><code>STC analysis — [SUPPLIER], [SITE]</code></td>
+            </tr>
+            <tr>
+              <td>Get email draft</td>
+              <td>No upload needed</td>
+              <td><code>Draft counterproposal email for #X, #Y</code></td>
+            </tr>
+            <tr>
+              <td>Check specific clause</td>
+              <td>No upload needed</td>
+              <td><code>What does the Playbook say about [clause]?</code></td>
+            </tr>
+          </tbody>
+        </table>
+      </div>
+    </div>
+  </section>
+
+  <!-- Suggested Prompts -->
+  <section>
+    <div class="container">
+      <h2>Suggested Prompts</h2>
+      <p class="section-subtitle">Copy-paste these prompts to get the best results from the Assistant.</p>
+      <div style="display:flex; flex-direction:column; gap:1.5rem;">
+
+        <!-- Round 1 -->
+        <div style="background:var(--card-bg); border:1px solid var(--border); border-radius:var(--radius); overflow:hidden; box-shadow:var(--shadow);">
+          <div style="background:var(--blue); color:white; padding:1rem 1.5rem; display:flex; align-items:center; justify-content:space-between;">
+            <div>
+              <span style="color:var(--orange); font-weight:700; font-size:0.75rem; text-transform:uppercase; letter-spacing:0.5px;">Phase 1</span>
+              <h3 style="font-size:1.05rem; margin-top:0.2rem;">Round 1 — Initial Analysis</h3>
+            </div>
+            <button onclick="copyPrompt('prompt-r1')" style="background:var(--orange); color:white; border:none; padding:0.5rem 1rem; border-radius:6px; font-size:0.8rem; font-weight:600; cursor:pointer;">Copy</button>
+          </div>
+          <div style="padding:1.25rem 1.5rem; font-size:0.85rem; color:var(--text-muted); line-height:1.7; font-family:'SF Mono','Fira Code',monospace; white-space:pre-wrap; background:#F9FAFB;" id="prompt-r1">Round 1 &#8212; Analyze the attached redline against the Base Template. Complete the ENTIRE analysis before presenting anything to me &#8212; do NOT stop to ask how to proceed, do NOT present partial results. Read EVERY section word by word (FWA Cl.1-18 + Schedule 1, ITC &#167;1-28 Schedule 2, Exhibits 1-6, Site T&amp;Cs Schedule 3). Any text that differs from the Base Template is a Track A deviation. Comments are Track B only. Apply Track A Gate (Q1-Q4), then L1 Playbook and L2 Clause Repository for every Track A deviation. Take as long as needed &#8212; I will wait. Only present results when the FULL analysis is complete: 1) Document Registration, 2) Negotiation Difficulty Assessment, 3) Executive Summary + Complete Deviation List, 4) Completeness Verification. Then ask before generating document.</div>
+        </div>
+
+        <!-- New Round -->
+        <div style="background:var(--card-bg); border:1px solid var(--border); border-radius:var(--radius); overflow:hidden; box-shadow:var(--shadow);">
+          <div style="background:var(--blue); color:white; padding:1rem 1.5rem; display:flex; align-items:center; justify-content:space-between;">
+            <div>
+              <span style="color:var(--orange); font-weight:700; font-size:0.75rem; text-transform:uppercase; letter-spacing:0.5px;">Phase 2</span>
+              <h3 style="font-size:1.05rem; margin-top:0.2rem;">Intermediate Round</h3>
+            </div>
+            <button onclick="copyPrompt('prompt-r2')" style="background:var(--orange); color:white; border:none; padding:0.5rem 1rem; border-radius:6px; font-size:0.8rem; font-weight:600; cursor:pointer;">Copy</button>
+          </div>
+          <div style="padding:1.25rem 1.5rem; font-size:0.85rem; color:var(--text-muted); line-height:1.7; font-family:'SF Mono','Fira Code',monospace; white-space:pre-wrap; background:#F9FAFB;" id="prompt-r2">New round &#8212; I'm uploading the new redline AND the previous round's analysis document. Read the previous analysis FIRST as baseline. Then compare the new document word by word against the Base Template to identify all Track A deviations. Also compare against previous round to generate Summary of Movement (resolved, new, modified, unchanged). Apply L1 Playbook and L2 Clause Repository for each. Maintain same deviation IDs from previous round. Present: 1) Summary of Movement, 2) Executive Summary with Open/Closed, 3) Complete Deviation List with status, 4) Completeness Verification. Then ask before generating document.</div>
+        </div>
+
+        <!-- Final Version -->
+        <div style="background:var(--card-bg); border:1px solid var(--border); border-radius:var(--radius); overflow:hidden; box-shadow:var(--shadow);">
+          <div style="background:var(--blue); color:white; padding:1rem 1.5rem; display:flex; align-items:center; justify-content:space-between;">
+            <div>
+              <span style="color:var(--orange); font-weight:700; font-size:0.75rem; text-transform:uppercase; letter-spacing:0.5px;">Phase 3</span>
+              <h3 style="font-size:1.05rem; margin-top:0.2rem;">Final Version</h3>
+            </div>
+            <button onclick="copyPrompt('prompt-final')" style="background:var(--orange); color:white; border:none; padding:0.5rem 1rem; border-radius:6px; font-size:0.8rem; font-weight:600; cursor:pointer;">Copy</button>
+          </div>
+          <div style="padding:1.25rem 1.5rem; font-size:0.85rem; color:var(--text-muted); line-height:1.7; font-family:'SF Mono','Fira Code',monospace; white-space:pre-wrap; background:#F9FAFB;" id="prompt-final">Final Version &#8212; I'm uploading the clean/definitive contract AND the previous round's analysis document. Read the previous analysis FIRST as baseline. Then compare the final contract word by word against the Base Template to confirm all deviations are resolved. Assign Outcomes to every deviation (Amazon Win if text matches template, Bilateral Compromise if partially modified, Concession if supplier's position fully accepted, Technical if non-substantive). All deviations must show &#10004; Resolved. Present: 1) Document Registration, 2) Negotiation Timeline, 3) Final Negotiation Scorecard, 4) Summary of Movement to Final, 5) Executive Summary Action Table, 6) Completeness Verification. Then ask before generating document.</div>
+        </div>
+
+      </div>
+    </div>
+  </section>
+
+  <!-- Tips -->
+  <section>
+    <div class="container">
+      <h2>Tips for Best Results</h2>
+      <p class="section-subtitle">Maximize accuracy and performance.</p>
+      <div class="tips-grid">
+        <div class="tip-card">
+          <span class="tip-icon">📄</span>
+          <p><strong>Always use .docx</strong> — PDF significantly reduces analysis accuracy.</p>
+        </div>
+        <div class="tip-card">
+          <span class="tip-icon">✏️</span>
+          <p><strong>Keep tracked changes visible</strong> — the Assistant needs markup to identify supplier modifications.</p>
+        </div>
+        <div class="tip-card">
+          <span class="tip-icon">💬</span>
+          <p><strong>Don't resolve comments</strong> — they provide important context for the analysis.</p>
+        </div>
+        <div class="tip-card">
+          <span class="tip-icon">🔄</span>
+          <p><strong>One contract per chat</strong> — start a new chat for each supplier or contract.</p>
+        </div>
+        <div class="tip-card">
+          <span class="tip-icon">&#128279;</span>
+          <p><strong>Upload previous analysis for Round 2+</strong> — this ensures continuity between rounds.</p>
+        </div>
+        <div class="tip-card">
+          <span class="tip-icon">🔢</span>
+          <p><strong>Check deviation count</strong> — if it seems too low, ask the Assistant to re-review section by section.</p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- FAQ -->
+  <section class="steps-section">
+    <div class="container">
+      <h2>Frequently Asked Questions</h2>
+      <p class="section-subtitle">Common questions about the Assistant.</p>
+      <div class="faq-list">
+        <div class="faq-item">
+          <div class="faq-question">Can I upload a PDF instead of .docx?</div>
+          <div class="faq-answer">No. PDF files significantly reduce accuracy. Always use .docx format with tracked changes visible.</div>
+        </div>
+        <div class="faq-item">
+          <div class="faq-question">What if I already accepted the tracked changes?</div>
+          <div class="faq-answer">The Assistant needs to see the markup to identify supplier modifications. Save a new version with Track Changes visible before uploading.</div>
+        </div>
+        <div class="faq-item">
+          <div class="faq-question">Do I need to upload the Base Template, Playbook, or Clause Repository?</div>
+          <div class="faq-answer">No. These documents are already connected to the Assistant. No upload needed.</div>
+        </div>
+        <div class="faq-item">
+          <div class="faq-question">Can I analyze multiple contracts in the same chat?</div>
+          <div class="faq-answer">No. Start a new chat for each supplier or contract to avoid confusion and maintain accuracy.</div>
+        </div>
+        <div class="faq-item">
+          <div class="faq-question">What if the deviation count seems wrong?</div>
+          <div class="faq-answer">Ask the Assistant: "Review the document again in detail, section by section, and check if you missed any deviations."</div>
+        </div>
+        <div class="faq-item">
+          <div class="faq-question">Does the Assistant make final decisions?</div>
+          <div class="faq-answer">No. The Assistant provides recommendations based on approved sources. You always review and approve before any action is taken.</div>
+        </div>
+        <div class="faq-item">
+          <div class="faq-question">Can I use this for non-3PL contracts?</div>
+          <div class="faq-answer">The Assistant is currently configured for 3PL contracts using the connected Base Template, Playbook, and Clause Repository. However, the underlying logic is adaptable — as long as you have a Base Template (your standard contract) and a Clause Repository (historical precedents with approved deviations), the agent can be configured to support any contract type. Contact <a href="mailto:pauviro@amazon.es" style="color:var(--orange);">Pau</a> to discuss setup for other categories.</div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Pain Point Submission -->
+  <section id="pain-point">
+    <div class="container">
+      <h2>Pain Point Submission</h2>
+      <p class="section-subtitle">Tell us what's slowing you down — we'll find a way to optimize it.</p>
+      <div style="background: var(--card-bg); border: 1px solid var(--border); border-radius: var(--radius); padding: 2rem; box-shadow: var(--shadow);">
+        <form id="painPointForm" onsubmit="submitPainPoint(event)">
+          <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 1.25rem; margin-bottom: 1.25rem;">
+            <div>
+              <label style="display:block; font-size:0.85rem; font-weight:600; margin-bottom:0.4rem; color:var(--blue);">Your Name / Alias *</label>
+              <input type="text" id="pp-name" required placeholder="e.g. pauviro" style="width:100%; padding:0.7rem 1rem; border:1px solid var(--border); border-radius:8px; font-size:0.9rem; outline:none; transition: border 0.2s;" onfocus="this.style.borderColor='var(--orange)'" onblur="this.style.borderColor='var(--border)'">
+            </div>
+            <div>
+              <label style="display:block; font-size:0.85rem; font-weight:600; margin-bottom:0.4rem; color:var(--blue);">Process Area *</label>
+              <select id="pp-area" required style="width:100%; padding:0.7rem 1rem; border:1px solid var(--border); border-radius:8px; font-size:0.9rem; background:white; outline:none; cursor:pointer;" onfocus="this.style.borderColor='var(--orange)'" onblur="this.style.borderColor='var(--border)'">
+                <option value="" disabled selected>Select area</option>
+                <option value="Contract Review">Contract Review</option>
+                <option value="Redline Analysis">Redline Analysis</option>
+                <option value="Negotiation Process">Negotiation Process</option>
+                <option value="Document Management">Document Management</option>
+                <option value="Clause Research">Clause Research</option>
+                <option value="Stakeholder Coordination">Stakeholder Coordination</option>
+                <option value="Other">Other</option>
+              </select>
+            </div>
+          </div>
+          <div style="margin-bottom: 1.25rem;">
+            <label style="display:block; font-size:0.85rem; font-weight:600; margin-bottom:0.4rem; color:var(--blue);">Describe your pain point *</label>
+            <textarea id="pp-description" required placeholder="Describe the task or process you'd like us to help optimize..." rows="4" style="width:100%; padding:0.7rem 1rem; border:1px solid var(--border); border-radius:8px; font-size:0.9rem; resize:vertical; outline:none; font-family:inherit; transition: border 0.2s;" onfocus="this.style.borderColor='var(--orange)'" onblur="this.style.borderColor='var(--border)'"></textarea>
+          </div>
+          <div style="text-align:center;">
+            <button type="submit" style="background:var(--orange); color:white; border:none; padding:0.85rem 2.5rem; border-radius:8px; font-size:1rem; font-weight:600; cursor:pointer; transition: background 0.2s;" onmouseover="this.style.background='var(--orange-hover)'" onmouseout="this.style.background='var(--orange)'">
+              &#9993; Submit Pain Point
+            </button>
+          </div>
+        </form>
+        <div id="pp-success" style="display:none; text-align:center; padding:2rem;">
+          <span style="font-size:2rem;">&#10003;</span>
+          <p style="font-size:1.1rem; font-weight:600; color:var(--success); margin-top:0.5rem;">Thank you! Your submission has been sent.</p>
+          <p style="font-size:0.88rem; color:var(--text-muted); margin-top:0.5rem;">We'll review it and get back to you if we need more details.</p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Footer -->
+  <footer>
+    <p>Contract Negotiation Assistant — User Guide</p>
+    <p>Questions or issues? Contact <a href="mailto:pauviro@amazon.es">pauviro@amazon.es</a> | <a href="https://atoz.amazon.work/phonetool/users/pauviro" target="_blank">Phonetool</a></p>
+    <p style="margin-top:1rem; opacity:0.5; font-size:0.8rem;">Last updated: June 2026</p>
+  </footer>
+
+  <script>
+    // FAQ accordion
+    document.querySelectorAll('.faq-question').forEach(q => {
+      q.addEventListener('click', () => {
+        const item = q.parentElement;
+        const isOpen = item.classList.contains('open');
+        // Close all
+        document.querySelectorAll('.faq-item').forEach(i => i.classList.remove('open'));
+        // Toggle current
+        if (!isOpen) item.classList.add('open');
+      });
+    });
+
+    // Smooth scroll
+    document.querySelectorAll('a[href^="#"]').forEach(anchor => {
+      anchor.addEventListener('click', function(e) {
+        e.preventDefault();
+        const target = document.querySelector(this.getAttribute('href'));
+        if (target) target.scrollIntoView({ behavior: 'smooth', block: 'start' });
+      });
+    });
+
+    // Copy prompt to clipboard
+    function copyPrompt(id) {
+      const text = document.getElementById(id).innerText;
+      navigator.clipboard.writeText(text).then(() => {
+        const btn = document.querySelector('[onclick="copyPrompt(\'' + id + '\')"]');
+        const original = btn.textContent;
+        btn.textContent = 'Copied!';
+        btn.style.background = 'var(--success)';
+        setTimeout(() => { btn.textContent = original; btn.style.background = 'var(--orange)'; }, 2000);
+      });
+    }
+
+    // Pain Point form submission via mailto
+    function submitPainPoint(e) {
+      e.preventDefault();
+      const name = document.getElementById('pp-name').value;
+      const area = document.getElementById('pp-area').value;
+      const description = document.getElementById('pp-description').value;
+
+      const subject = encodeURIComponent('Pain Point Submission — ' + area);
+      const body = encodeURIComponent(
+        'FROM: ' + name + '\n' +
+        'PROCESS AREA: ' + area + '\n\n' +
+        'DESCRIPTION:\n' + description
+      );
+
+      window.location.href = 'mailto:pauviro@amazon.es?subject=' + subject + '&body=' + body;
+
+      // Show success message
+      document.getElementById('painPointForm').style.display = 'none';
+      document.getElementById('pp-success').style.display = 'block';
+    }
+  </script>
+</body>
+</html>
